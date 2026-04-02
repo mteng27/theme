@@ -1,12 +1,9 @@
 {
-  "name": "ginza",
-  "name#ja": "銀座",
-  "name#zh": "银座",
-  "author": "Typlog",
-  "repo": "typlog/ginza",
-  "version": "0.4.3",
-  "tags": ["blog", "podcast"],
-  "images": [
-      "https://user-images.githubusercontent.com/290496/133878214-faf64fa7-02b3-49df-ab79-601366a19422.png"
-  ]
+  "name": "TENG",
+  "name#ja": "TENG",
+  "name#zh": "TENG",
+  "author": "TENG",
+  "repo": "mteng27/theme",
+  "version": "1.0.0",
+  "tags": ["blog", "podcast"]
 }
