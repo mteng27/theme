@@ -6,3 +6,13 @@
 .side_title {
   font-family: 'Bungee Shade', cursive;
 }
+
+/* TENG: Bungee Shade Logo - Fixed */
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
+
+.side_title {
+  font-family: 'Bungee Shade', cursive !important;
+}
+.site-foot .title {
+  font-family: 'Bungee Shade', cursive !important;
+}
