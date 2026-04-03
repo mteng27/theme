@@ -1,0 +1,20 @@
+{%- macro render_item(site, subject) -%}
+<div id="item-{{ subject.id }}" class="item {{ subject.type|title }}">
+  <a class="item-main" href="{{ linkify(subject.url) }}">
+    <div class="item-meta">
+      <time datetime="{{ subject.published_at|xmldatetime }}">{{ subject.published_at.strftime('%b %d, %Y') }}</time>
+    </div>
+    <h3>{{ subject.title }}</h3>
+    {%- if subject.subtitle %}
+    <div class="item-subtitle">{{ subject.subtitle }}</div>
+    {%- endif -%}
+  </a>
+</div>
+{%- endmacro -%}
+
+{%- macro render_navigation(site, page) -%}
+<div class="navigation">
+  {% if page.prev_page %}<a href="{{ linkify(page.prev_page) }}">← Previous</a>{% endif %}
+  {% if page.next_page %}<a href="{{ linkify(page.next_page) }}">Next →</a>{% endif %}
+</div>
+{%- endmacro -%}
