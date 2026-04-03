@@ -8,46 +8,51 @@
 {% endblock %}
 
 {% block body %}
-  <div class="body">
-    {% include "./_side.j2" %}
-    <div class="main">
-      <div class="inner main_mark">
-        {% if page.type == 'tag' %}
-          <div class="main_head">
-            <h1>{{ page.topic.name }}</h1>
-            {% if page.topic.summary %}<h2>{{ page.topic.summary }}</h2>{% endif %}
-          </div>
-        {% elif page.type == 'author' %}
-          <div class="main_head author">
-            {% set author = page.topic %}
-            {% if author.avatar %}
-              <a class="author_image" href="{{ linkify(author.url) }}">
-                <img src="{{ author.avatar|thumbnail('ss') }}" alt="avatar of {{ author.name }}" width="80" height="80">
-              </a>
-            {% endif %}
-            <div class="author_info">
-              <h1><a class="h-card" rel="me" href="{{ linkify(author.url) }}">{{ author.name }}</a></h1>
-              {% if author.bio_html %}
-                <div>{{ author.bio_html|safe }}</div>
-              {% endif %}
-            </div>
-          </div>
-        {% endif %}
-        
-        {% for subject in page.items %}
-          {{ render_item(site, subject) }}
+<body class="solazy-list">
+  <header>
+    <a class="title" href="{{ linkify('/') }}">
+      <h1>{{ site.name }}</h1>
+    </a>
+    <nav>
+      <a href="{{ linkify('/') }}">Home</a>
+      {% if site.primary_links %}
+        {% for nav in site.primary_links %}
+        <a href="{{ nav.url }}">{{ nav.title }}</a>
         {% endfor %}
-        
-        {% if page.years %}
-          <div class="navigation">
-            {% for year in page.years|reverse %}
-              {%- set url = page.base_url + year|string + '/' -%}
-              <a{% if page.year == year %} class="active"{% endif %} href="{{ linkify(url) }}">{{ year }}</a>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    {% if page.type == 'tag' %}
+      <h2>{{ page.topic.name }}</h2>
+    {% elif page.type == 'author' %}
+      <h2>{{ page.topic.name }}</h2>
+    {% else %}
+      <h2>Article</h2>
+    {% endif %}
+
+    <ul class="blog-posts">
+      {% for subject in page.items %}
+      <li>
+        <time>{{ subject.published_at.strftime('%Y-%m-%d') }}</time>
+        <a href="{{ linkify(subject.url) }}">{{ subject.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% if page.years %}
+    <div class="navigation">
+      {% for year in page.years|reverse %}
+        {%- set url = page.base_url + year|string + '/' -%}
+        <a{% if page.year == year %} class="active"{% endif %} href="{{ linkify(url) }}">{{ year }}</a>
+      {% endfor %}
     </div>
-  </div>
-  {% include "./_foot.j2" %}
+    {% endif %}
+  </main>
+
+  <footer>
+    <p>Crafted with ❤️</p>
+  </footer>
+</body>
 {% endblock %}
