@@ -1,19 +1,24 @@
-{% from "macros.j2" import render_item %}
-
 {% block style %}
   <link rel="stylesheet" href="{{ static_url }}ueno.css">
 {% endblock %}
 
 {% block body %}
-  <div class="body">
+  <div class="body home-layout">
     {% include "./_side.j2" %}
     <div class="main">
-      <div class="inner main_mark">
-        {% set subjects = query.latest_subjects(count=10) %}
-        {% for subject in subjects %}
-          {{ render_item(site, subject) }}
-        {% endfor %}
-        {% if subjects|count == 10 %}
+      <div class="main-inner">
+        {% set subjects = query.latest_subjects(count=300) %}
+        <ul class="article-list">
+          {% for subject in subjects %}
+            <li>
+              {% if subject.published_at %}
+                <time datetime="{{ subject.published_at|xmldatetime }}">{{ subject.published_at.strftime('%b %d, %Y') }}</time>
+              {% endif %}
+              <a class="title-link" href="{{ linkify(subject.url) }}">{{ subject.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if subjects|count == 300 %}
           {% set last = subjects|last %}
           <div class="home-more">
             <a href="{{ linkify(site.list_url) }}{{last.published_at.year}}/#item-{{last.id}}">ARCHIVE →</a>
